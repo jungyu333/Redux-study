@@ -1,7 +1,16 @@
 import React from "react";
+import { connect } from "react-redux";
 
-function Detail() {
-  return <div>Detail</div>;
+function Detail({ toDo }) {
+  return <div>{toDo.text}</div>;
 }
 
-export default Detail;
+function mapStateToProps(state, ownProps) {
+  const {
+    match: {
+      params: { id },
+    },
+  } = ownProps;
+  return { toDo: state.find((element) => element.id === id) };
+}
+export default connect(mapStateToProps)(Detail);
